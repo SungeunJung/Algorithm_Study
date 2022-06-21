@@ -1,10 +1,12 @@
 ﻿# Algorithm_Study
+ </br>
  
  > ## Language 
 
 - JavaScript
 - C#
 
+</br>
 
  > ## Websites
 
