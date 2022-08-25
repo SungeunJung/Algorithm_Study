@@ -43,35 +43,14 @@
 
 var input = require('fs').readFileSync('./example.txt').toString().trim().split('\n'); 
 var total = +input.shift();
-var schedule = [], checked = Array(total).fill(false);
-var maxP = 0, curP=0, queue = [];
+var dp = Array(total).fill(0);
 
-input.forEach(v=> {
-    schedule.push(v.trim().split(' ').map(v=>+v));
-});
-
-var getNext = () => {
-    var [index, cur] = queue.shift();
-    var start = index+schedule[index][0];
-    if(start>=total) {
-        if(start===total) cur += schedule[index][1];
-        maxP = Math.max(maxP, cur);
-    }
-    for(var i=start; i<total; i++) {
-        checked[i] = true;
-        queue.push([i, cur+schedule[index][1]]);
-    }
+for(var i=total-1; i>=0; i--) {
+    var [day, pay] = input[i].trim().split(' ').map(v=>+v);
+    dp[i] = ((i+day)<=total) ? (i+day<total) ? Math.max(...dp.slice(i+day)) + pay : pay : 0;
 }
 
-for(var i=0; i<total; i++, curP=0) {
-    if(checked[i]) continue;
-    queue.push([i, curP]);
-    while(queue.length) {
-        getNext();
-    }
-}
-
-console.log(maxP);
+console.log(Math.max(...dp));
 
 /*
     Dynamic Programming으로 풀기
