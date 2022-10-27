@@ -35,33 +35,51 @@
     "123"	                123
 */
 
+// 정규식 사용하여 수정한 코드
 function solution(s) {
-    var answer = '';
-    const numToEng = {
-        'zero': 0,
-        'one': 1,
-        'two': 2, 
-        'three': 3,
-        'four': 4,
-        'five': 5,
-        'six': 6,
-        'seven': 7,
-        'eight': 8,
-        'nine': 9
+    const number = {
+        'zero': 0, 'one': 1, 'two': 2,  'three': 3, 'four': 4,
+        'five': 5, 'six': 6, 'seven': 7, 'eight': 8, 'nine': 9
     }
     
-    var word = '';
-    
-    for(var i=0; i<s.length; i++) {
-        isNaN(s[i]) ?  word += s[i] : answer += s[i];
-        if(word in numToEng) {
-            answer += numToEng[word];
-            word = '';
-        }
+    for(let word in number) {
+        let regexAllCase = new RegExp(word, "g")
+        s = s.replace(regexAllCase,number[word]);
     }
-    
-    return Number(answer);
+    return Number(s);
 }
+
+/*
+    수정 전 코드
+
+    function solution(s) {
+        var answer = '';
+        const numToEng = {
+            'zero': 0,
+            'one': 1,
+            'two': 2, 
+            'three': 3,
+            'four': 4,
+            'five': 5,
+            'six': 6,
+            'seven': 7,
+            'eight': 8,
+            'nine': 9
+        }
+        
+        var word = '';
+        
+        for(var i=0; i<s.length; i++) {
+            isNaN(s[i]) ?  word += s[i] : answer += s[i];
+            if(word in numToEng) {
+                answer += numToEng[word];
+                word = '';
+            }
+        }
+        
+        return Number(answer);
+    }
+*/
 
 /*
     split() 사용해서 더 간략하게 표현하기
